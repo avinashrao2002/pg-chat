@@ -1,12 +1,10 @@
 type Query {
     info: String,
-    get(key: String): String
+
 }
 
 type Message {
-    messageBody: String!
-    sentBy: User!
-    receivedBy: User!
+    body: String
 }
 
 type User {
@@ -15,5 +13,5 @@ type User {
 }
 
 type Mutation {
-    set(key: String!, value: String!): Boolean!
+    createMessage(body: String!): Message
 }
