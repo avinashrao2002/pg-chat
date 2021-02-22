@@ -1,0 +1,19 @@
+type Query {
+    info: String,
+    get(key: String): String
+}
+
+type Message {
+    messageBody: String!
+    sentBy: User!
+    receivedBy: User!
+}
+
+type User {
+    username: String!
+    email: String!
+}
+
+type Mutation {
+    set(key: String!, value: String!): Boolean!
+}
