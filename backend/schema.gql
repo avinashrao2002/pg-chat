@@ -1,17 +1,21 @@
 type Query {
-    info: String,
-
+  info: String
+  getConversation(id1: Int!, id2: Int!): [Message!]
 }
 
 type Message {
-    body: String
+  body: String
+  sentby: Int
+  receivedby: Int
+  id: Int
 }
 
 type User {
-    username: String!
-    email: String!
+  username: String!
+  email: String!
 }
 
 type Mutation {
-    createMessage(body: String!): Message
+  createMessage(sentby: Int, receivedby: Int, body: String): Message
+  createUser(email: String!, username: String): User
 }

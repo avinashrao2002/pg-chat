@@ -5,19 +5,26 @@ const path = require("path");
 const connectToDb = require("./connection");
 connectToDb();
 const Message = require("./Message");
+const User = require("./User");
 const resolvers = {
   Query: {
     info: () => "Hello World",
   },
   Mutation: {
-    createMessage: async (parent, { body }) => {
-      await Message.sync({ force: true }); //.sync creates
+    createMessage: async (parent, { body, sentby, receivedby }) => {
+      //.sync creates
       // a table and force:
       // true removes all the previous messages
       // and creates a new one
-      let m = Message.build({ body });
+      let m = Message.build({ body, sentby, receivedby });
       await m.save();
       return m;
+    },
+    createUser: async (parent, { email, username }) => {
+      //Authenticate with github
+      let u = User.build({ email, username });
+      await u.save();
+      return u;
     },
   },
 };
