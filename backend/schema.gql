@@ -1,12 +1,14 @@
 type Query {
   info: String
-  getConversation(id1: Int!, id2: Int!): [Message!]
+  getConversation(id1: Int!, id2: Int!): [Message]
 }
 
 type Message {
   body: String
   sentby: Int
   receivedby: Int
+  sentbyusername: String
+  receivedbyusername: String
   id: Int
 }
 

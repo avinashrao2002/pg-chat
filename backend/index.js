@@ -3,12 +3,21 @@ const { ApolloServer } = require("apollo-server-express");
 const fs = require("fs");
 const path = require("path");
 const connectToDb = require("./connection");
+const { sequelize } = require("./connection");
 connectToDb();
 const Message = require("./Message");
 const User = require("./User");
 const resolvers = {
   Query: {
     info: () => "Hello World",
+    getConversation: async (_, { id1, id2 }) => {
+      const [results, metadata] = await sequelize.query(
+        `select body, a.username as sentbyUsername, b.username as receivedbyUsername 
+        from "Messages", "Users" as a, "Users" as b
+        where sentby = ${id1} and receivedby = ${id2} and sentby = a.id and receivedby = b.id ;`
+      );
+      return results;
+    },
   },
   Mutation: {
     createMessage: async (parent, { body, sentby, receivedby }) => {
